@@ -1,0 +1,1 @@
+O Jogo de Números Binários é uma atividade interativa que ensina crianças a converter números entre os sistemas decimal e binário de forma lúdica. Com visual atrativo, linguagem acessível e explicações simples, estimula o raciocínio lógico e a fluência digital desde cedo.
