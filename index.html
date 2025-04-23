@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jogo de Números Binários</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+      padding: 20px;
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      background: #fff8f0;
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 700px;
+      margin: auto;
+      border: 5px dashed #fdbb2d;
+    }
+    h1 {
+      font-size: 36px;
+      color: #f57c00;
+    }
+    button, input {
+      padding: 12px 20px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 12px;
+      border: none;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #ffcc80;
+      color: #5d4037;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ffe0b2;
+    }
+    input {
+      border: 2px solid #ffb74d;
+    }
+    #feedback {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    #pontuacao {
+      font-size: 18px;
+      color: #00695c;
+    }
+    .explicacao {
+      text-align: left;
+      background: #e1f5fe;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #01579b;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌟 Jogo de Números Binários 🌟</h1>
+    <p id="pergunta"></p>
+    <input type="text" id="resposta" placeholder="Digite sua resposta aqui">
+    <button onclick="verificarResposta()">Verificar</button>
+    <p id="feedback"></p>
+    <p id="pontuacao"></p>
+    <button onclick="iniciarJogo()">Nova Pergunta</button>
+    <button onclick="mostrarExplicacao()">❓ Como funciona?</button>
+
+    <div id="explicacao" class="explicacao" style="display:none">
+      <h3>🔍 Como converter números?</h3>
+      <p><strong>Decimal para binário:</strong> divida o número por 2, guarde o resto, e repita até o quociente ser 0. Leia os restos de baixo para cima.<br>
+      <em>Exemplo: 13 → 1101</em></p>
+      <p><strong>Binário para decimal:</strong> multiplique cada dígito da direita para a esquerda por potências de 2 e some.<br>
+      <em>Exemplo: 1101 → 8 + 4 + 0 + 1 = 13</em></p>
+      <p>📚 Aprender isso ajuda a entender como os computadores funcionam. E o mais legal? Você vai se tornar um verdadeiro mestre dos códigos! 🧠💡</p>
+    </div>
+  </div>
+
+  <script>
+    let rodada = 0;
+    let pontos = 0;
+    let tipoPergunta = "";
+    let numeroAtual = 0;
+
+    function gerarPergunta() {
+      numeroAtual = Math.floor(Math.random() * 16);
+      tipoPergunta = Math.random() > 0.5 ? "decimalParaBinario" : "binarioParaDecimal";
+
+      if (tipoPergunta === "decimalParaBinario") {
+        document.getElementById("pergunta").textContent = `🔢 Converta o número decimal ${numeroAtual} para binário:`;
+      } else {
+        document.getElementById("pergunta").textContent = `🔢 Converta o número binário ${numeroAtual.toString(2)} para decimal:`;
+      }
+    }
+
+    function verificarResposta() {
+      const resposta = document.getElementById("resposta").value.trim();
+      let correta = "";
+
+      if (tipoPergunta === "decimalParaBinario") {
+        correta = numeroAtual.toString(2);
+      } else {
+        correta = parseInt(numeroAtual.toString(2), 2).toString();
+      }
+
+      if (resposta === correta) {
+        pontos++;
+        document.getElementById("feedback").textContent = "🎉 Resposta correta! Muito bem!";
+      } else {
+        document.getElementById("feedback").textContent = `😕 Resposta incorreta. A resposta correta era: ${correta}`;
+      }
+      document.getElementById("pontuacao").textContent = `🏆 Pontuação: ${pontos}`;
+    }
+
+    function iniciarJogo() {
+      document.getElementById("resposta").value = "";
+      document.getElementById("feedback").textContent = "";
+      gerarPergunta();
+    }
+
+    function mostrarExplicacao() {
+      const explicacao = document.getElementById("explicacao");
+      explicacao.style.display = explicacao.style.display === "none" ? "block" : "none";
+    }
+
+    // Inicia com a primeira pergunta
+    iniciarJogo();
+  </script>
+</body>
+</html>
